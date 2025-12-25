@@ -99,9 +99,10 @@ from room
 order by room_area;
 
 -- 7. (3 điểm) Lấy thông tin khách hàng và phòng khách sạn đã đặt gồm: họ tên khách hàng, mã phòng, ngày nhận phòng và ngày trả phòng.
-select c.customer_full_name, b.room_id, b.check_in_date, b.check_out_date
+select c.customer_full_name, r.room_id, b.check_in_date, b.check_out_date
 from customer c
-         join booking b on c.customer_id = b.customer_id;
+    join booking b on c.customer_id = b.customer_id
+    join room r on r.room_id = b.room_id;
 
 -- 8. (3 điểm) Lấy danh sách khách hàng và tổng tiền đã thanh toán khi đặt phòng, gồm mã khách hàng, họ tên khách hàng,
 -- phương thức thanh toán và số tiền thanh toán, sắp xếp theo số tiền thanh toán tăng dần.
