@@ -138,7 +138,7 @@ select c.customer_id, c.customer_full_name, b.room_id, sum(p.payment_amount) as 
 from customer c
          join booking b on c.customer_id = b.customer_id
          join payment p on b.booking_id = p.booking_id
-group by c.customer_id, c.customer_full_name, b.room_id
+group by c.customer_id, c.customer_full_name
 having sum(p.payment_amount) > 1000;
 
 -- 13. (6 điểm) Lấy danh sách các khách hàng gồm : mã KH, Họ tên, email, sđt có họ tên chứa chữ "Minh" hoặc địa chỉ ở "Hanoi".
@@ -210,7 +210,7 @@ create or replace function trg2()
 as
 $$
 begin
-    update examination.room
+    update exam.room
     set room_status = 'Booked'
     where room_id = new.room_id;
     return new;
@@ -254,7 +254,7 @@ create or replace procedure add_payment(p_booking_id int, p_payment_method varch
 as
 $$
 begin
-    if exists (select 1 from booking where booking_id = p_booking_id) then
+    if exists (select 1 from payment where booking_id = p_booking_id) then
         raise exception 'Mã đặt phòng này đã thanh toán rồi';
     end if;
     insert into payment (booking_id, payment_method, payment_date, payment_amount)
